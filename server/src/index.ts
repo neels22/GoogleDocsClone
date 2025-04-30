@@ -1,15 +1,25 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { Server } from "socket.io";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import dotenv from 'dotenv';
 import { getAllDocuments, findOrCreateDocument, updateDocument } from "./controllers/documentController" ;
 import OpenAI from 'openai';
-import { createServer } from 'http';
+import { Document } from './models/Document';
+import { handleLLMRequest } from './controllers/llmController';
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+const httpServer = createServer(app);
+
+// CORS configuration
+const corsOptions = {
+    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const PORT = Number(process.env.PORT || 3000) ;
@@ -20,16 +30,15 @@ const openai = new OpenAI({
 });
 
 /** Connect to MongoDB */
-mongoose.connect(process.env.DATABASE_URL || "", { dbName: "Google-Docs" })
+mongoose.connect(process.env.MONGODB_URI || "", { dbName: "Google-Docs" })
 .then(() => { console.log("Database connected.");})
 .catch((error) => { console.log("DB connection failed. " + error);}) ;
 
-const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
-    methods: ["GET", "POST"],
-  },
+    cors: {
+        origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+        methods: ["GET", "POST"]
+    }
 });
 
 // LLM endpoint
