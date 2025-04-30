@@ -80,9 +80,17 @@ export const TextEditor = () => {
         if (toolbar) {
             const llmBtn = document.createElement('button');
             llmBtn.type = 'button';
-            llmBtn.innerText = 'LLM';
+            llmBtn.innerText = 'AI';
             llmBtn.className = 'ql-llm custom-llm-btn';
             llmBtn.style.marginLeft = '8px';
+            llmBtn.style.marginRight = '8px';
+            llmBtn.style.backgroundColor = '#000000';
+            llmBtn.style.color = '#fff';
+            llmBtn.style.border = 'none';
+            llmBtn.style.borderRadius = '5px';
+            llmBtn.style.cursor = 'pointer';
+            llmBtn.style.width = '30px';
+            
             toolbar.appendChild(llmBtn);
 
             llmBtn.onclick = () => {
