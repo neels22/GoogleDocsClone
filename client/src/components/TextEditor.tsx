@@ -13,8 +13,6 @@ export const TextEditor = () => {
     const [isLLMDialogOpen, setIsLLMDialogOpen] = useState(false);
     const [selectedText, setSelectedText] = useState("");
     const [savedRange, setSavedRange] = useState<{ index: number; length: number } | null>(null);
-    const [llmResponse, setLlmResponse] = useState<string | null>(null);
-    const [showLlmResponse, setShowLlmResponse] = useState(false);
     
     useEffect(() => {
         const skt = io(import.meta.env.VITE_SERVER_URL) ;
@@ -183,37 +181,6 @@ export const TextEditor = () => {
                 onSend={handleLLMResponse}
                 selectedText={selectedText}
             />
-            {showLlmResponse && (
-              <div
-                style={{
-                  position: 'fixed',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  background: 'rgba(0,0,0,0.4)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  zIndex: 1000
-                }}
-                onClick={() => setShowLlmResponse(false)}
-              >
-                <div
-                  style={{
-                    background: 'white',
-                    padding: '2rem',
-                    borderRadius: '8px',
-                    maxWidth: '600px',
-                    width: '90%',
-                    boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
-                    position: 'relative'
-                  }}
-                  onClick={e => e.stopPropagation()}
-                >
-                  <h2 style={{marginTop: 0}}>LLM Response</h2>
-                  <div style={{whiteSpace: 'pre-wrap', marginBottom: '1rem'}}>{llmResponse}</div>
-                  <button onClick={() => setShowLlmResponse(false)}>Close</button>
-                </div>
-              </div>
-            )}
         </div>
     )
 }
