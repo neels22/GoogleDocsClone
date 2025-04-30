@@ -74,3 +74,13 @@
       @apply bg-background text-foreground;
     }
   }
+
+.ql-editor blockquote {
+  border-left: 4px solid #4f8cff;
+  background: #f0f6ff;
+  color: #1a237e;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  font-style: italic;
+  border-radius: 4px;
+}

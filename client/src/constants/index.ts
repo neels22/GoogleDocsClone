@@ -9,5 +9,6 @@ export const TOOLBAR_OPTIONS = [
     [{ script: "sub" }, { script: "super" }],
     [{ align: [] }],
     ["image", "blockquote", "code-block"],
-    ["clean"]
+    ["clean"],
+    ["llm"]
 ];
