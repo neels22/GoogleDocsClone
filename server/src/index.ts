@@ -6,8 +6,7 @@ import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import { getAllDocuments, findOrCreateDocument, updateDocument } from "./controllers/documentController" ;
 import OpenAI from 'openai';
-import { Document } from './models/Document';
-import { handleLLMRequest } from './controllers/llmController';
+
 dotenv.config();
 
 const app = express();
